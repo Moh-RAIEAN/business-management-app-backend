@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\successes\\.5649a8c10a8bd1cce4020f6de6629ef84ccc9f00-audit.json",
+    "files": [
+        {
+            "date": 1691007716420,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\successes\\success-2023-08-03-02.log",
+            "hash": "95d782c7653f83b04342820af919e830076d29b6ce9e21d60a978de171a84ff4"
+        }
+    ],
+    "hashType": "sha256"
+}
