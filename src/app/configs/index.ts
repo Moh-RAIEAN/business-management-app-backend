@@ -7,6 +7,7 @@ const Configs = {
   port: process.env.PORT,
   dbUrl: process.env.DB_URL,
   env: process.env.NODE_ENV,
+  adminId: process.env.ADMIN_ID,
 };
 
 export default Configs;
