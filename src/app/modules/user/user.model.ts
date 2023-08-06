@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt';
 
 const userSchema = new Schema<IUser>(
   {
-    id: {
+    userId: {
       type: String,
       requried: true,
     },
@@ -28,6 +28,7 @@ const userSchema = new Schema<IUser>(
     toObject: { virtuals: true },
   },
 );
+
 userSchema.pre('save', async function (next) {
   try {
     const password = this.password;
@@ -38,6 +39,17 @@ userSchema.pre('save', async function (next) {
   }
   next();
 });
+
+userSchema.statics.comparePassword = async function (
+  givenpassword: string,
+  savedPassword: string,
+) {
+  const isPasswordMatched: boolean = await bcrypt.compare(
+    givenpassword,
+    savedPassword,
+  );
+  return isPasswordMatched;
+};
 applyDefaultSchema(userSchema);
 
 const User = model<IUser, IUserModel>('User', userSchema);

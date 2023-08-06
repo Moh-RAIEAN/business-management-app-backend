@@ -69,6 +69,26 @@
             "date": 1691265722341,
             "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-06-02.log",
             "hash": "69c8ebd18dd64606289e1705b38b4f8f2b8dbef0908112df1fd3fb6e05cb3558"
+        },
+        {
+            "date": 1691323894596,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-06-18.log",
+            "hash": "33d5f06129825cb770dbee05f5fbdf0726fe82fe1be3b881e32a2fe219bdde12"
+        },
+        {
+            "date": 1691331412643,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-06-20.log",
+            "hash": "34a84e92ec442e573e3e12b7843a4f5ef87bef61f870b13c7255b8cb7a1eb2ab"
+        },
+        {
+            "date": 1691342890122,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-06-23.log",
+            "hash": "5f73518fe7af55375201875d19f0ec4ad0bebc65240c6d9a7ebfd180097009e1"
+        },
+        {
+            "date": 1691344908955,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-07-00.log",
+            "hash": "9b4b7584c9050e7db44a62702d90f1f84acdc8640aeca880a1c5ddcaf25023d2"
         }
     ],
     "hashType": "sha256"

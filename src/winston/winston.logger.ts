@@ -8,12 +8,15 @@ const myFormat = printf(({ level, message, timestamp }) => {
   const dateObj = new Date(timestamp);
   const dateFormat = `[📆${dateObj.toLocaleString('en-US', {
     month: 'short',
-  })}-${dateObj.getDate()}-${dateObj.getFullYear()}]--[⌚${dateObj.toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    hour12: true,
-  })}]`;
+  })}-${dateObj.getDate()}-${dateObj.getFullYear()}]--[⌚${dateObj.toLocaleString(
+    'en-US',
+    {
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      hour12: true,
+    },
+  )}]`;
 
   return `${dateFormat}--[${level}]: ${message}\n`;
 });

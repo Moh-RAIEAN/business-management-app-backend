@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 
 export type IAdmin = {
-  adminId: string;
+  userId: string;
   firstName: string;
   lastName: string;
   image: string;

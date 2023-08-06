@@ -1,9 +1,9 @@
-import { IErrorMessages } from '../../interfaces/error.interface';
+import { IGenericErrorMessages } from '../../interfaces/error.interface';
 
 class ApiError extends Error {
   statusCode: number;
   stack!: string;
-  errorMessages: IErrorMessages[];
+  errorMessages: IGenericErrorMessages[];
   constructor(
     statusCode: number,
     message: string,

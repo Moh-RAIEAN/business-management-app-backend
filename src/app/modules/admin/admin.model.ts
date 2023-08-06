@@ -4,7 +4,7 @@ import applyDefaultSchema from '../../../helpers/applyDefaultSchema';
 
 const adminSchema = new mongoose.Schema<IAdmin>(
   {
-    adminId: {
+    userId: {
       type: String,
       required: true,
     },

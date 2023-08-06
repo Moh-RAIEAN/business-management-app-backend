@@ -14,23 +14,23 @@ const createAdmin = async (
   if (isExist) {
     throw new ApiError(403, 'admin is already exist!');
   }
-  if (!adminData?.adminId) {
-    adminData.adminId = Configs.adminId!;
-  }
+
+  adminData.userId = Configs.adminId!;
   const session = await mongoose.startSession();
-  let result: IUser = {
-    id: '',
-    role: '',
-    password: '',
-  };
+  let result = null;
   try {
     session.startTransaction();
     const createdAdmin = await Admin.create([adminData], { session });
     if (createdAdmin.length < 0) {
       throw new ApiError(400, 'can"t create admin internal server error');
     }
-    const { id, _id, role } = createdAdmin[0];
-    const userData = { id, role, admin: _id, password: adminData?.password };
+    const { userId, _id, role } = createdAdmin[0];
+    const userData: IUser = {
+      userId,
+      role,
+      admin: _id,
+      password: adminData.password!,
+    };
 
     const createdUser = await User.create([userData], { session });
     if (createdUser.length < 0) {
