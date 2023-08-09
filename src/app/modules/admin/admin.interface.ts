@@ -1,12 +1,11 @@
 import { Model } from 'mongoose';
+import { IName } from '../../../interfaces/common.interface';
 
 export type IAdmin = {
-  userId: string;
-  firstName: string;
-  lastName: string;
+  name: IName;
   image: string;
-  role: string;
-  password?: string;
+  email: string;
+  password: string;
 };
 
 type IAdminStatics = {

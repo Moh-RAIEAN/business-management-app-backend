@@ -1,13 +1,15 @@
 import { Model, Types } from 'mongoose';
 import { IAdmin } from '../admin/admin.interface';
+import { UserConstants } from './user.constants';
+import { IEmployee } from '../employee/employee.interface';
 
+const ROLES = UserConstants.ROLES;
 export type IUser = {
   userId: string;
-  role: string;
+  role: (typeof ROLES)[number];
   password: string;
   admin?: Types.ObjectId | IAdmin;
-  seller?: Types.ObjectId | string;
-  stuff?: Types.ObjectId | string;
+  employee?: Types.ObjectId | IEmployee;
 };
 
 export type IUserStatics = {

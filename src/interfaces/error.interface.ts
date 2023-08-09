@@ -1,4 +1,4 @@
-export type IGenericErrorMessages = {
+export type IGenericErrorMessage = {
   path: string;
   message: string;
 };
@@ -6,13 +6,13 @@ export type IGenericErrorMessages = {
 export type IGenericError = {
   statusCode?: number;
   message: string;
-  errorMessages: IGenericErrorMessages[];
+  errorMessages: IGenericErrorMessage[];
 };
 
 export type IGlobalError = {
   statusCode: number;
   success: boolean;
   message: string;
-  errorMessages: IGenericErrorMessages[];
+  errorMessages: IGenericErrorMessage[];
   stack: string;
 };

@@ -8,9 +8,15 @@ const createAdmin = catchAsync(async (req, res) => {
   sendResponse(res, result);
 });
 
+const createEmployee = catchAsync(async (req, res) => {
+  const employeeData = req.body;
+  const result = await AdminService.createEmployee(employeeData);
+  sendResponse(res, result);
+});
+
 const getAdmin = catchAsync(async (req, res) => {
   const result = await AdminService.getAdmin();
   sendResponse(res, result);
 });
 
-export const AdminControllers = { createAdmin, getAdmin };
+export const AdminControllers = { createAdmin, createEmployee, getAdmin };

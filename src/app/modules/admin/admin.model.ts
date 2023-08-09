@@ -4,32 +4,31 @@ import applyDefaultSchema from '../../../helpers/applyDefaultSchema';
 
 const adminSchema = new mongoose.Schema<IAdmin>(
   {
-    userId: {
-      type: String,
-      required: true,
-    },
-    firstName: {
-      type: String,
-      required: true,
-    },
-    lastName: {
-      type: String,
+    name: {
+      type: {
+        firstName: {
+          type: String,
+          required: true,
+        },
+        lastName: {
+          type: String,
+          required: true,
+        },
+      },
+      _id: false,
       required: true,
     },
     image: {
       type: String,
       required: true,
     },
-    role: {
+    email: {
       type: String,
-      enum: ['admin'],
       required: true,
     },
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
   },
 );
 

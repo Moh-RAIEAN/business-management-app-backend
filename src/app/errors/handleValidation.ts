@@ -1,12 +1,12 @@
 import { Error } from 'mongoose';
 import {
   IGenericError,
-  IGenericErrorMessages,
+  IGenericErrorMessage,
 } from '../../interfaces/error.interface';
 
-const handleMongoose = (error: Error.ValidationError): IGenericError => {
+const handleValidation = (error: Error.ValidationError): IGenericError => {
   const errors = error.errors;
-  const errorMessages: IGenericErrorMessages[] = Object.values(errors).map(
+  const errorMessages: IGenericErrorMessage[] = Object.values(errors).map(
     (error) => {
       let message: string = error.message;
       if (error.kind === 'required') {
@@ -18,4 +18,4 @@ const handleMongoose = (error: Error.ValidationError): IGenericError => {
   return { message: error.name, errorMessages };
 };
 
-export default handleMongoose;
+export default handleValidation;

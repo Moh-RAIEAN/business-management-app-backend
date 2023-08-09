@@ -7,8 +7,9 @@ import handleApiError from '../errors/handleApiError';
 import sendErrorResponse from '../../helpers/sendErrorResponse';
 import { ZodError } from 'zod';
 import handleZodError from '../errors/handleZodError';
-import mongoose from 'mongoose';
-import handleMongoose from '../errors/handleMongoose';
+import mongoose, { mongo } from 'mongoose';
+import handleValidation from '../errors/handleValidation';
+import handleDuplicateKeyError from '../errors/handleDuplicateKeyError';
 
 const globalErrorHandler: ErrorRequestHandler = async (
   error,
@@ -36,9 +37,14 @@ const globalErrorHandler: ErrorRequestHandler = async (
     errorResponse.errorMessages = zodError.errorMessages;
   }
   if (error instanceof mongoose.Error.ValidationError) {
-    const apiError = handleMongoose(error);
+    const apiError = handleValidation(error);
     errorResponse.message = apiError.message;
     errorResponse.errorMessages = apiError.errorMessages;
+  }
+  if (error?.code === 11000) {
+    const duplicateKeyError = handleDuplicateKeyError(error);
+    errorResponse.message = duplicateKeyError.message;
+    errorResponse.errorMessages = duplicateKeyError.errorMessages;
   }
   sendErrorResponse(res, errorResponse);
 };

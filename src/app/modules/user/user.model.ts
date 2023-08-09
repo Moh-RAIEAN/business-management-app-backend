@@ -2,6 +2,7 @@ import { CallbackError, Schema, Types, model } from 'mongoose';
 import { IUser, IUserModel } from './user.interface';
 import applyDefaultSchema from '../../../helpers/applyDefaultSchema';
 import bcrypt from 'bcrypt';
+import { UserConstants } from './user.constants';
 
 const userSchema = new Schema<IUser>(
   {
@@ -12,20 +13,17 @@ const userSchema = new Schema<IUser>(
     role: {
       type: String,
       required: true,
-      enum: ['admin', 'seller', 'stuff'],
+      enum: UserConstants.ROLES,
     },
     password: {
       type: String,
       required: true,
     },
     admin: { type: Types.ObjectId, ref: 'Admin' },
-    seller: { type: Types.ObjectId, ref: 'Seller' },
-    stuff: { type: Types.ObjectId, ref: 'Stuff' },
+    employee: { type: Types.ObjectId, ref: 'Employee' },
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
   },
 );
 
