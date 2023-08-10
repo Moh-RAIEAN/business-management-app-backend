@@ -4,8 +4,9 @@ import { EmployeeConstants } from './employee.constants';
 import { IName } from '../../../interfaces/common.interface';
 import { UserConstants } from '../user/user.constants';
 
-const { GENDER, RELEGIONS } = EmployeeConstants;
+const { GENDER, RELEGIONS, SEACHABLE_FILEDS } = EmployeeConstants;
 const ROLES = UserConstants.ROLES;
+
 export type IEmployee = {
   role?: (typeof ROLES)[number];
   name: IName;
@@ -28,3 +29,16 @@ export type IEmployee = {
 };
 
 export type IEmployeeModel = Model<IEmployee, Record<string, unknown>>;
+
+export type IEmployeeSeachableFields = (typeof SEACHABLE_FILEDS)[number];
+
+export type IEmployeeFilters = {
+  [key: string]: string | number | undefined;
+  searchTerm?: string;
+  salary?: number;
+  status?: string; // active status
+  gender?: string;
+  role?: string;
+  contactNo?: string;
+  emergancyContactNo?: string;
+};

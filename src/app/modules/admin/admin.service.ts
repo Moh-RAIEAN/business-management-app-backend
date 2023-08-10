@@ -6,11 +6,15 @@ import { IAdmin } from './admin.interface';
 import Admin from './admin.model';
 import User from '../user/user.model';
 import { IUser } from '../user/user.interface';
-import { IEmployee } from '../employee/employee.interface';
+import { IEmployee, IEmployeeFilters } from '../employee/employee.interface';
 import { StatusCodes } from 'http-status-codes';
 import { UserConstants } from '../user/user.constants';
 import { Employee } from '../employee/employee.model';
 import { EmployeeUtils } from '../employee/employee.utils';
+import { IPaginationOptions } from '../../../interfaces/common.interface';
+import { EmployeeConstants } from '../employee/employee.constants';
+import { AdminUtils } from './admin.utils';
+import handlePagination from '../../../helpers/paginationHelpers';
 
 const [ADMIN] = UserConstants.ROLES;
 const { adminId, defaultEmployeePassword } = Configs;
@@ -100,8 +104,78 @@ const createEmployee = async (
   return { message: 'employee created successfully!', data: result };
 };
 
+const getEployees = async (
+  employeeFilters: IEmployeeFilters,
+  paginationOptions: IPaginationOptions,
+): Promise<IGenericResult<IEmployee[]>> => {
+  // handle database query
+  const { searchTerm, ...otherFilters } = employeeFilters;
+  const { SEACHABLE_FILEDS } = EmployeeConstants;
+  const searchCondition: { [key: string]: unknown } = {};
+  if (searchTerm) {
+    searchCondition.$or = SEACHABLE_FILEDS.map((field) => {
+      return { [`employee.${field}`]: { $regex: searchTerm, $options: 'i' } };
+    });
+  }
+
+  const filtersCondition = AdminUtils.handleEmployeeFilters(otherFilters);
+
+  const serachQuery = {
+    $and: [
+      searchCondition,
+      filtersCondition.$and.length ? filtersCondition : {},
+    ],
+  };
+  const aggregationQuery = [
+    { $match: { role: { $ne: ADMIN } } },
+    {
+      $lookup: {
+        from: 'employees',
+        localField: 'employee',
+        foreignField: '_id',
+        as: 'employee',
+      },
+    },
+    { $unwind: '$employee' },
+    {
+      $match: serachQuery,
+    },
+    { $project: { password: 0 } },
+  ];
+  // handle pagination
+  const { page, skip, limit, sortBy, sortOrder } =
+    handlePagination(paginationOptions);
+
+  const users = await User.aggregate(aggregationQuery)
+    .sort({ [sortBy]: sortOrder })
+    .skip(skip!)
+    .limit(limit!);
+  const total = await User.aggregate([
+    ...aggregationQuery,
+    { $count: 'total' },
+  ]);
+
+  return {
+    message: 'Employees retirved successfully!',
+    meta: { page, limit, total: total[0]?.total },
+    data: users,
+  };
+};
+const getEployee = async (
+  id: string,
+): Promise<IGenericResult<IUser | null>> => {
+  const result = await User.findOne({ employee: id }).populate('employee');
+  return { message: 'Admin retirved successfully!', data: result };
+};
+
 const getAdmin = async (): Promise<IGenericResult<IAdmin | null>> => {
   const result = await Admin.findOne({});
   return { message: 'Admin retirved successfully!', data: result };
 };
-export const AdminService = { createAdmin, createEmployee, getAdmin };
+export const AdminService = {
+  createAdmin,
+  createEmployee,
+  getEployees,
+  getEployee,
+  getAdmin,
+};

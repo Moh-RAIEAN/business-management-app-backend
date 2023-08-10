@@ -17,6 +17,8 @@ router.post(
   validateRequest(EmployeeValidations.creatingTimeEmployeeValidation),
   AdminControllers.createEmployee,
 );
+router.get('/employees', AdminControllers.getEployees);
+router.get('/employees/:id', AdminControllers.getEployee);
 router.get('/', AdminControllers.getAdmin);
 
 export const AdminRoutes = router;
