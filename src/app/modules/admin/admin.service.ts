@@ -11,10 +11,13 @@ import { StatusCodes } from 'http-status-codes';
 import { UserConstants } from '../user/user.constants';
 import { Employee } from '../employee/employee.model';
 import { EmployeeUtils } from '../employee/employee.utils';
-import { IPaginationOptions } from '../../../interfaces/common.interface';
+import { IPaginationOptions } from '../../../interfaces/IPaginationOptions';
 import { EmployeeConstants } from '../employee/employee.constants';
 import { AdminUtils } from './admin.utils';
 import handlePagination from '../../../helpers/paginationHelpers';
+import { IProductCategory } from '../productCategory/productCategory.interface';
+import { productCategoryUtils } from '../productCategory/productCategory.utils';
+import { ProductCategory } from '../productCategory/productCategory.model';
 
 const [ADMIN] = UserConstants.ROLES;
 const { adminId, defaultEmployeePassword } = Configs;
@@ -161,6 +164,7 @@ const getEployees = async (
     data: users,
   };
 };
+
 const getEployee = async (
   id: string,
 ): Promise<IGenericResult<IUser | null>> => {
@@ -168,14 +172,111 @@ const getEployee = async (
   return { message: 'Admin retirved successfully!', data: result };
 };
 
+const updateEmployee = async (
+  id: string,
+  updatedData: Partial<IEmployee>,
+): Promise<IGenericResult<IUser | null>> => {
+  const isExist = await User.findOne({ employee: id });
+  if (!isExist) {
+    throw new ApiError(StatusCodes.NOT_FOUND, 'Employee not found!');
+  }
+
+  const length = Object.keys(updatedData).length;
+  const { role, name, ...othersData } = updatedData;
+  const updatedName: { [key: string]: string } = {};
+  if (name) {
+    Object.keys(name).forEach((n) => {
+      updatedName[`name.${n}`] = (name as { [key: string]: string })[n];
+    });
+  }
+  const modifiedUpdatedData = { ...othersData, ...updatedName };
+
+  if (role && length === 1) {
+    isExist.role = role;
+    await isExist?.save();
+  } else if (role && length > 1) {
+    isExist.role = role;
+    await isExist.save();
+    await Employee.updateOne({ _id: id }, { $set: { ...modifiedUpdatedData } });
+  } else {
+    await Employee.findByIdAndUpdate(id, modifiedUpdatedData);
+  }
+
+  const result = await User.findOne({ employee: id }).populate('employee');
+  return { message: 'Employee updated successfully!', data: result };
+};
+
+const deleteEmployee = async (
+  id: string,
+): Promise<IGenericResult<IUser | null>> => {
+  const isExist = await User.findOne({ employee: id }).populate('employee');
+  if (!isExist) {
+    throw new ApiError(StatusCodes.NOT_FOUND, 'Employee not found!');
+  }
+  const session = await mongoose.startSession();
+  try {
+    session.startTransaction();
+    await User.deleteOne({ employee: id }, { session });
+    await Employee.deleteOne({ _id: id }, { session });
+    await session.commitTransaction();
+    await session.endSession();
+  } catch (error) {
+    session.abortTransaction();
+    session.endSession();
+    throw error;
+  }
+  return { message: 'Employee deleted successfully!', data: isExist };
+};
+
 const getAdmin = async (): Promise<IGenericResult<IAdmin | null>> => {
   const result = await Admin.findOne({});
   return { message: 'Admin retirved successfully!', data: result };
 };
+
+const createCategory = async (
+  productCategoryData: IProductCategory,
+): Promise<IGenericResult<IProductCategory>> => {
+  const { findMaxCategoryId, generateCategoryId } = productCategoryUtils;
+  productCategoryData.id = generateCategoryId(await findMaxCategoryId());
+  const result = await ProductCategory.create(productCategoryData);
+  return {
+    message: 'created new category successfull!',
+    data: result,
+  };
+};
+
+const updateProductCategory = async (
+  id: string,
+  updatedData: Pick<IProductCategory, 'name'>,
+): Promise<IGenericResult<IProductCategory | null>> => {
+  const result = await ProductCategory.findByIdAndUpdate(id, updatedData, {
+    new: true,
+  });
+  return {
+    message: 'category updated successfully!',
+    data: result,
+  };
+};
+
+const deleteProductCategory = async (
+  id: string,
+): Promise<IGenericResult<IProductCategory | null>> => {
+  const result = await ProductCategory.findByIdAndDelete(id);
+  return {
+    message: 'category deleted successfully!',
+    data: result,
+  };
+};
+
 export const AdminService = {
   createAdmin,
   createEmployee,
   getEployees,
   getEployee,
+  updateEmployee,
+  deleteEmployee,
   getAdmin,
+  createCategory,
+  updateProductCategory,
+  deleteProductCategory,
 };

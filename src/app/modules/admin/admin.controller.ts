@@ -1,13 +1,11 @@
-import { commotConstants } from '../../../constants/common.constants';
+import { commonConstants } from '../../../constants/common.constants';
 import pick from '../../../helpers/pick';
 import sendResponse from '../../../helpers/sendResponse';
-import { IPaginationOptions } from '../../../interfaces/common.interface';
+import { IPaginationOptions } from '../../../interfaces/IPaginationOptions';
 import catchAsync from '../../../shared/catchAsync';
 import { EmployeeConstants } from '../employee/employee.constants';
 import { IEmployeeFilters } from '../employee/employee.interface';
 import { AdminService } from './admin.service';
-
-const { PAGINATION_OPTIONS } = commotConstants;
 
 const createAdmin = catchAsync(async (req, res) => {
   const adminData = req.body;
@@ -22,6 +20,7 @@ const createEmployee = catchAsync(async (req, res) => {
 });
 
 const getEployees = catchAsync(async (req, res) => {
+  const { PAGINATION_OPTIONS } = commonConstants;
   const { FILTERS } = EmployeeConstants;
   const employeeFilters = pick(req.query, FILTERS) as IEmployeeFilters;
   const paginationOptions = pick(
@@ -41,8 +40,40 @@ const getEployee = catchAsync(async (req, res) => {
   sendResponse(res, result);
 });
 
+const updateEployee = catchAsync(async (req, res) => {
+  const employeeId = req.params?.id;
+  const updatedData = req.body;
+  const result = await AdminService.updateEmployee(employeeId, updatedData);
+  sendResponse(res, result);
+});
+
+const deleteEployee = catchAsync(async (req, res) => {
+  const employeeId = req.params?.id;
+  const result = await AdminService.deleteEmployee(employeeId);
+  sendResponse(res, result);
+});
+
 const getAdmin = catchAsync(async (req, res) => {
   const result = await AdminService.getAdmin();
+  sendResponse(res, result);
+});
+
+const createCategory = catchAsync(async (req, res) => {
+  const productCategoryData = req.body;
+  const result = await AdminService.createCategory(productCategoryData);
+  sendResponse(res, result);
+});
+
+const updateProductCategory = catchAsync(async (req, res) => {
+  const id = req.params?.id;
+  const updatedData = req.body;
+  const result = await AdminService.updateProductCategory(id, updatedData);
+  sendResponse(res, result);
+});
+
+const deleteProductCategory = catchAsync(async (req, res) => {
+  const id = req.params?.id;
+  const result = await AdminService.deleteProductCategory(id);
   sendResponse(res, result);
 });
 
@@ -51,5 +82,10 @@ export const AdminControllers = {
   createEmployee,
   getEployees,
   getEployee,
+  updateEployee,
+  deleteEployee,
   getAdmin,
+  createCategory,
+  updateProductCategory,
+  deleteProductCategory,
 };

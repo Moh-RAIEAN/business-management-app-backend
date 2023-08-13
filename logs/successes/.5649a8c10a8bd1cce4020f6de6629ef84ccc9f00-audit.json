@@ -229,6 +229,56 @@
             "date": 1691690614005,
             "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\successes\\success-2023-08-11-00.log",
             "hash": "6874ddfe7831054e27692a5d226eafe1445552b4d21cc8fcfc047a4595b51da6"
+        },
+        {
+            "date": 1691808719070,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\successes\\success-2023-08-12-08.log",
+            "hash": "149e7e4ed2ce64959fedc5579872d77f22971e4e1abf139287ba6685175b68a6"
+        },
+        {
+            "date": 1691809221255,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\successes\\success-2023-08-12-09.log",
+            "hash": "4f5df78900556f37df2a21aaefe6a88a3ef497b215dbc5992f776de4367ebfc1"
+        },
+        {
+            "date": 1691814681361,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\successes\\success-2023-08-12-10.log",
+            "hash": "ef3b1ce7cd225695f54c8802a36f25e3a9de6bb0b48a5f8635077f6c221a40fb"
+        },
+        {
+            "date": 1691817674461,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\successes\\success-2023-08-12-11.log",
+            "hash": "5e62b2ba7f091e328ce5a2edad0e4bb9e9f3c7e7a18c734c2fe240dce83c5237"
+        },
+        {
+            "date": 1691829104070,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\successes\\success-2023-08-12-14.log",
+            "hash": "e42d1040d7b59bffe5a6470e6e37029814b95ff25f793254374c9869a209136a"
+        },
+        {
+            "date": 1691832327486,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\successes\\success-2023-08-12-15.log",
+            "hash": "e10e519649eb209b05f286fc0ca42a3e525ee283f1d9df8d9093ef19332d0a3b"
+        },
+        {
+            "date": 1691884154137,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\successes\\success-2023-08-13-05.log",
+            "hash": "ed074c18691cf364669d85bc7cbd15ee64fc12d067ffa5b1ac5633ac71d16fa2"
+        },
+        {
+            "date": 1691884815128,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\successes\\success-2023-08-13-06.log",
+            "hash": "fcbb02a5f6d8628e12b1bc10b5273d3554ffbbdf39b7d8289a579415b101b882"
+        },
+        {
+            "date": 1691890838233,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\successes\\success-2023-08-13-07.log",
+            "hash": "011a5e7997b1c45588677995ac4ffa822cc24b1ca1ca8300dd478321f5926435"
+        },
+        {
+            "date": 1691892452963,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\successes\\success-2023-08-13-08.log",
+            "hash": "a69cd50736a37353ae21e345f84a7e77dca02521e683c51f579efb4bd64e2cb2"
         }
     ],
     "hashType": "sha256"

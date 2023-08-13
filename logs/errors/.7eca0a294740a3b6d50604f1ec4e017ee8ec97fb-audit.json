@@ -229,6 +229,56 @@
             "date": 1691690614013,
             "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-11-00.log",
             "hash": "99555d3bab109d9524cdc9a21f1bb72f6577aa7b2bf89e3a99f5400b8df9d42f"
+        },
+        {
+            "date": 1691808719164,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-12-08.log",
+            "hash": "81cd6a230f7f4e26b95d5ffd3fc3a6020fdbe3a6b26b336b49e74a2ad74933ee"
+        },
+        {
+            "date": 1691809221268,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-12-09.log",
+            "hash": "7268e9aa1c8b98c458b7279f5d869f802e0ce47c203b1d226c1123466dbe6404"
+        },
+        {
+            "date": 1691814681393,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-12-10.log",
+            "hash": "7de89655463247d57580df66916f6527ab4d3545cbea257954fc19f4da92ad00"
+        },
+        {
+            "date": 1691817674467,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-12-11.log",
+            "hash": "81e8ea62458a903c0d55cf85a44c1891ac2b9e61dedb7deefc7d9eb59cbd78bf"
+        },
+        {
+            "date": 1691829104076,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-12-14.log",
+            "hash": "763a0ee23713649b056f2501fcae2752929fa439450ae794170ee6d19b528d61"
+        },
+        {
+            "date": 1691832327494,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-12-15.log",
+            "hash": "dd54a440d03ed4c1c087057400181e240ffcf95bd48f090fa2f84fc8c784884e"
+        },
+        {
+            "date": 1691884154158,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-13-05.log",
+            "hash": "8d9b39954fe173f886559dfb32b0170e1827ec21354b3444be6eb0267a3bbe69"
+        },
+        {
+            "date": 1691884815134,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-13-06.log",
+            "hash": "350b950f9f9194df345f16ff72b8540464bcd83aeb118cc777ee01e0b88b5561"
+        },
+        {
+            "date": 1691890838238,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-13-07.log",
+            "hash": "1cc42395069198f666c922d8e668534b3e0abeb4ad60b49d6956e24023f66bda"
+        },
+        {
+            "date": 1691892452968,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-13-08.log",
+            "hash": "7d49c64f1cac3f9ed8028920bd925a6b5d0e45a4a220bc0fb213b753905711a5"
         }
     ],
     "hashType": "sha256"

@@ -65,7 +65,7 @@ export const ${capitalize(folderName)}Service = {};
 `,
   },
   {
-    name: 'route.ts',
+    name: 'routes.ts',
     getCode: (folderName) =>
       `/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Router } from 'express';

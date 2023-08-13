@@ -20,30 +20,6 @@ const FILTERS = [
   'contactNo',
   'emergancyContactNo',
 ];
-//                 -> /employees/?sellers
-//                 -> /employees/?stuffs
-//                 -> /employees/?active
-//                 -> /employees/?deactive
-//                 -> /employees/?contactNo
-//                 -> /employees/?emergancyContactNo
-// role?: (typeof ROLES)[number];
-//   name: IName;
-//   age: number;
-//   image: string;
-//   isActive: boolean;
-//   gender: (typeof GENDER)[number];
-//   salary: number;
-//   isSalaryprovided: boolean;
-//   salaryProvidedAt?: Date;
-//   relegion: (typeof RELEGIONS)[number];
-//   dateOfBirth: Date;
-//   presentAddress: string;
-//   permanentAddress: string;
-//   highestEducationLevel: string;
-//   email: string;
-//   contactNo: string;
-//   emergancyContactNo: string;
-//   needsToChangePassword: boolean;
 export const EmployeeConstants = {
   RELEGIONS,
   GENDER,

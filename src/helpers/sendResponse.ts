@@ -7,7 +7,7 @@ import {
 const sendResponse = <T>(res: Response, data: IGenericResult<T>): void => {
   const response: IGenericResponse<T> = {
     statusCode: data?.statusCode || 200,
-    success: false,
+    success: true,
     message: data?.message,
     meta: data?.meta,
     data: data?.data,

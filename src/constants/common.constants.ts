@@ -7,4 +7,4 @@ const PAGINATION_OPTIONS = [
   'sortOrder',
 ];
 
-export const commotConstants = { PAGINATION_OPTIONS };
+export const commonConstants = { PAGINATION_OPTIONS };
