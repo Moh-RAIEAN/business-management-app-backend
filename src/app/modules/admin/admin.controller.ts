@@ -13,6 +13,22 @@ const createAdmin = catchAsync(async (req, res) => {
   sendResponse(res, result);
 });
 
+const getAdmin = catchAsync(async (req, res) => {
+  const result = await AdminService.getAdmin();
+  sendResponse(res, result);
+});
+
+const updateAdmin = catchAsync(async (req, res) => {
+  const updatedData = req.body;
+  const result = await AdminService.updateAdmin(updatedData);
+  sendResponse(res, result);
+});
+
+const deleteAdmin = catchAsync(async (req, res) => {
+  const result = await AdminService.deleteAdmin();
+  sendResponse(res, result);
+});
+
 const createEmployee = catchAsync(async (req, res) => {
   const employeeData = req.body;
   const result = await AdminService.createEmployee(employeeData);
@@ -53,11 +69,6 @@ const deleteEployee = catchAsync(async (req, res) => {
   sendResponse(res, result);
 });
 
-const getAdmin = catchAsync(async (req, res) => {
-  const result = await AdminService.getAdmin();
-  sendResponse(res, result);
-});
-
 const createCategory = catchAsync(async (req, res) => {
   const productCategoryData = req.body;
   const result = await AdminService.createCategory(productCategoryData);
@@ -79,12 +90,14 @@ const deleteProductCategory = catchAsync(async (req, res) => {
 
 export const AdminControllers = {
   createAdmin,
+  getAdmin,
+  updateAdmin,
+  deleteAdmin,
   createEmployee,
   getEployees,
   getEployee,
   updateEployee,
   deleteEployee,
-  getAdmin,
   createCategory,
   updateProductCategory,
   deleteProductCategory,

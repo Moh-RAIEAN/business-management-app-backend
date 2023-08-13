@@ -68,6 +68,60 @@ const createAdmin = async (
   return { message: 'admin created successfully!', data: result };
 };
 
+const getAdmin = async (): Promise<IGenericResult<IAdmin>> => {
+  const result = await Admin.findOne({});
+  if (!result) {
+    throw new ApiError(StatusCodes.NOT_FOUND, 'No admin found');
+  }
+  return { message: 'Admin retirved successfully!', data: result };
+};
+
+const updateAdmin = async (
+  updatedData: Partial<IAdmin>,
+): Promise<IGenericResult<IAdmin | null>> => {
+  const isExist = await Admin.findOne({});
+  if (!isExist) {
+    throw new ApiError(StatusCodes.NOT_FOUND, 'No admin found!');
+  }
+  const { name, ...othersUpdatedData } = updatedData;
+  const updatedName: { [key: string]: string } = {};
+  if (name) {
+    Object.keys(name).forEach(
+      (n: string) =>
+        (updatedName[`name.${n}`] = (name as { [key: string]: string })[n]),
+    );
+  }
+  const newUpdatedData = { ...othersUpdatedData, ...updatedName };
+  const result = await Admin.findOneAndUpdate(
+    { _id: isExist?._id },
+    { $set: { ...newUpdatedData } },
+    { new: true },
+  );
+
+  return { message: 'Admin updated successfully!', data: result };
+};
+
+const deleteAdmin = async (): Promise<IGenericResult<IAdmin | null>> => {
+  const [ADMIN] = UserConstants.ROLES;
+  const isExist = await Admin.findOne({});
+  if (!isExist) {
+    throw new ApiError(StatusCodes.NOT_FOUND, 'No amdin found!');
+  }
+  const session = await mongoose.startSession();
+  try {
+    session.startTransaction();
+    await User.deleteOne({ role: ADMIN }, { session });
+    await Admin.deleteOne({ _id: isExist?._id }, { session });
+    await session.commitTransaction();
+    await session.endSession();
+  } catch (error) {
+    session.abortTransaction();
+    session.endSession();
+    throw error;
+  }
+  return { message: 'Admin deleted successfully!', data: isExist };
+};
+
 const createEmployee = async (
   employeeData: IEmployee,
 ): Promise<IGenericResult<IUser>> => {
@@ -228,11 +282,6 @@ const deleteEmployee = async (
   return { message: 'Employee deleted successfully!', data: isExist };
 };
 
-const getAdmin = async (): Promise<IGenericResult<IAdmin | null>> => {
-  const result = await Admin.findOne({});
-  return { message: 'Admin retirved successfully!', data: result };
-};
-
 const createCategory = async (
   productCategoryData: IProductCategory,
 ): Promise<IGenericResult<IProductCategory>> => {
@@ -270,12 +319,14 @@ const deleteProductCategory = async (
 
 export const AdminService = {
   createAdmin,
+  getAdmin,
+  updateAdmin,
+  deleteAdmin,
   createEmployee,
   getEployees,
   getEployee,
   updateEmployee,
   deleteEmployee,
-  getAdmin,
   createCategory,
   updateProductCategory,
   deleteProductCategory,

@@ -24,10 +24,28 @@ const creatingTimeAdminValidation = z.object({
         .email(),
       password: z
         .string({ required_error: 'password is required!' })
-        .nonempty()
-        .trim(),
+        .nonempty(),
     })
     .strict({ message: 'please provide only name image, password fileds!' }),
 });
 
-export const AdminValidations = { creatingTimeAdminValidation };
+const updatingTimeAdminValidation = z.object({
+  body: z
+    .object({
+      name: z
+        .object({
+          firstName: z.string().nonempty().trim().optional(),
+          lastName: z.string().nonempty().trim().optional(),
+        })
+        .optional(),
+      image: z.string().nonempty().trim().optional(),
+      email: z.string().nonempty().email().optional(),
+      password: z.string().nonempty().optional(),
+    })
+    .strict({ message: 'please provide only name image, password fileds!' }),
+});
+
+export const AdminValidations = {
+  creatingTimeAdminValidation,
+  updatingTimeAdminValidation,
+};
