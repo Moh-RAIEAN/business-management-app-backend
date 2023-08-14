@@ -324,6 +324,16 @@
             "date": 1691986132589,
             "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-14-10.log",
             "hash": "eb7de8b78465f06e185263e21ba581c49e5170c22a99f15c698af5f61a86e072"
+        },
+        {
+            "date": 1692001688842,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-14-14.log",
+            "hash": "12f6e11efc3c8a32c4e6117c3bedc31330f06c56637ca1ecb50c5c3292f8a4d9"
+        },
+        {
+            "date": 1692003642557,
+            "name": "E:\\projects\\businessManagementApp\\bs-backend\\logs\\errors\\errors-2023-08-14-15.log",
+            "hash": "25950a93b539db3fd8a38b966d90d95e9eef33889b7cac40246058c4f0d2df35"
         }
     ],
     "hashType": "sha256"
