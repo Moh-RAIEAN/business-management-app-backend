@@ -7,10 +7,11 @@ import { productCategoryValidations } from '../productCategory/productCategory.v
 import checkNoAdmin from '../../middlewares/checkNoAdmin';
 import validateAuth from '../../middlewares/validateAuth';
 import { UserConstants } from '../user/user.constants';
+import { ProductValidations } from '../product/product.validation';
 
 const [ADMIN] = UserConstants.ROLES;
 const router: Router = Router();
-
+/* ############# ADMIN SPECIFIC ROUTES ############# */
 router.post(
   '/create-admin',
   checkNoAdmin(),
@@ -27,6 +28,7 @@ router.patch(
 );
 router.delete('/', validateAuth([ADMIN]), AdminControllers.deleteAdmin);
 
+/* ############# EMPLOYEE SPECIFIC ROUTES ############# */
 router.post(
   '/create-employee',
   validateAuth([ADMIN]),
@@ -51,22 +53,44 @@ router.delete(
   AdminControllers.deleteEployee,
 );
 
+/* ############# CATEGORY SPECIFIC ROUTES ############# */
 router.post(
   '/categories',
   validateAuth([ADMIN]),
-  validateRequest(productCategoryValidations.categoryValidation),
+  validateRequest(productCategoryValidations.creatingTimecategoryValidation),
   AdminControllers.createCategory,
 );
 
 router.patch(
   '/categories/:id',
   validateAuth([ADMIN]),
+  validateRequest(productCategoryValidations.updatingTimeCategoryValidation),
   AdminControllers.updateProductCategory,
 );
 router.delete(
   '/categories/:id',
   validateAuth([ADMIN]),
   AdminControllers.deleteProductCategory,
+);
+
+/* ############# PRODUCT SPECIFIC ROUTES ############# */
+router.post(
+  '/products',
+  validateAuth([ADMIN]),
+  validateRequest(ProductValidations.creatingTimeProductValidation),
+  AdminControllers.createProduct,
+);
+router.patch(
+  '/products/:id',
+  validateAuth([ADMIN]),
+  validateRequest(ProductValidations.updatingTimeProductValidation),
+  AdminControllers.updateProduct,
+);
+router.delete(
+  '/products/:id',
+  validateAuth([ADMIN]),
+  // validateRequest(productCategoryValidations.categoryValidation),
+  AdminControllers.deleteProduct,
 );
 
 export const AdminRoutes = router;

@@ -7,6 +7,8 @@ import { EmployeeConstants } from '../employee/employee.constants';
 import { IEmployeeFilters } from '../employee/employee.interface';
 import { AdminService } from './admin.service';
 
+/* ############# ADMIN SPECIFIC CONTROLLERS ############# */
+
 const createAdmin = catchAsync(async (req, res) => {
   const adminData = req.body;
   const result = await AdminService.createAdmin(adminData);
@@ -28,6 +30,8 @@ const deleteAdmin = catchAsync(async (req, res) => {
   const result = await AdminService.deleteAdmin();
   sendResponse(res, result);
 });
+
+/* ############# EMPLOYEE SPECIFIC CONTROLLERS ############# */
 
 const createEmployee = catchAsync(async (req, res) => {
   const employeeData = req.body;
@@ -69,6 +73,8 @@ const deleteEployee = catchAsync(async (req, res) => {
   sendResponse(res, result);
 });
 
+/* ############# CATEGORY SPECIFIC CONTROLLERS ############# */
+
 const createCategory = catchAsync(async (req, res) => {
   const productCategoryData = req.body;
   const result = await AdminService.createCategory(productCategoryData);
@@ -88,6 +94,26 @@ const deleteProductCategory = catchAsync(async (req, res) => {
   sendResponse(res, result);
 });
 
+/* ############# PRODUCT SPECIFIC CONTROLLERS ############# */
+
+const createProduct = catchAsync(async (req, res) => {
+  const productData = req.body;
+  const result = await AdminService.createProduct(productData);
+  sendResponse(res, result);
+});
+
+const updateProduct = catchAsync(async (req, res) => {
+  const id = req.params?.id;
+  const updatedData = req.body;
+  const result = await AdminService.updateProduct(id, updatedData);
+  sendResponse(res, result);
+});
+
+const deleteProduct = catchAsync(async (req, res) => {
+  const id = req.params?.id;
+  const result = await AdminService.deleteProduct(id);
+  sendResponse(res, result);
+});
 export const AdminControllers = {
   createAdmin,
   getAdmin,
@@ -101,4 +127,7 @@ export const AdminControllers = {
   createCategory,
   updateProductCategory,
   deleteProductCategory,
+  createProduct,
+  updateProduct,
+  deleteProduct,
 };

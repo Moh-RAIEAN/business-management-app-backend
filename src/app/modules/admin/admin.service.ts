@@ -18,9 +18,14 @@ import handlePagination from '../../../helpers/paginationHelpers';
 import { IProductCategory } from '../productCategory/productCategory.interface';
 import { productCategoryUtils } from '../productCategory/productCategory.utils';
 import { ProductCategory } from '../productCategory/productCategory.model';
+import { IProduct } from '../product/product.interface';
+import { ProductUtils } from '../product/product.uitils';
+import { Product } from '../product/product.model';
 
 const [ADMIN] = UserConstants.ROLES;
 const { adminId, defaultEmployeePassword } = Configs;
+
+/* ############# ADMIN SPECIFIC SERVICES ############# */
 
 const createAdmin = async (
   adminData: IAdmin,
@@ -121,6 +126,8 @@ const deleteAdmin = async (): Promise<IGenericResult<IAdmin | null>> => {
   }
   return { message: 'Admin deleted successfully!', data: isExist };
 };
+
+/* ############# EMPLOYEE SPECIFIC SERVICES ############# */
 
 const createEmployee = async (
   employeeData: IEmployee,
@@ -282,6 +289,8 @@ const deleteEmployee = async (
   return { message: 'Employee deleted successfully!', data: isExist };
 };
 
+/* ############# CATEGORY SPECIFIC SERVICES ############# */
+
 const createCategory = async (
   productCategoryData: IProductCategory,
 ): Promise<IGenericResult<IProductCategory>> => {
@@ -289,7 +298,7 @@ const createCategory = async (
   productCategoryData.id = generateCategoryId(await findMaxCategoryId());
   const result = await ProductCategory.create(productCategoryData);
   return {
-    message: 'created new category successfull!',
+    message: 'category created successfully!',
     data: result,
   };
 };
@@ -298,6 +307,10 @@ const updateProductCategory = async (
   id: string,
   updatedData: Pick<IProductCategory, 'name'>,
 ): Promise<IGenericResult<IProductCategory | null>> => {
+  const isExist = await ProductCategory.findById(id);
+  if (!isExist) {
+    throw new ApiError(404, 'Produtc not found!');
+  }
   const result = await ProductCategory.findByIdAndUpdate(id, updatedData, {
     new: true,
   });
@@ -310,9 +323,70 @@ const updateProductCategory = async (
 const deleteProductCategory = async (
   id: string,
 ): Promise<IGenericResult<IProductCategory | null>> => {
+  const isExist = await Product.findById(id);
+  if (!isExist) {
+    throw new ApiError(404, 'Product not found!');
+  }
   const result = await ProductCategory.findByIdAndDelete(id);
   return {
     message: 'category deleted successfully!',
+    data: result,
+  };
+};
+
+/* ############# PRODUCT SPECIFIC SERVICES ############# */
+
+const createProduct = async (
+  productData: IProduct,
+): Promise<IGenericResult<IProduct>> => {
+  const isCategoryExists = await ProductCategory.findOne({
+    id: productData.category,
+  });
+  if (!isCategoryExists) {
+    throw new ApiError(
+      404,
+      `Category is not found for ${productData.category}!`,
+    );
+  }
+
+  const { findMaxProductId, generateProductId } = ProductUtils;
+  productData.id = generateProductId(
+    await findMaxProductId(),
+    String(productData.category),
+  );
+
+  productData.category = isCategoryExists?._id;
+  const result = await Product.create(productData);
+  return {
+    message: 'Product created successfully!',
+    data: result,
+  };
+};
+
+const updateProduct = async (
+  id: string,
+  updatedData: IProduct,
+): Promise<IGenericResult<IProduct | null>> => {
+  const isExist = await Product.findById(id);
+  if (!isExist) {
+    throw new ApiError(404, 'Product not found!');
+  }
+  const result = await Product.findByIdAndUpdate(id, updatedData, {
+    new: true,
+  });
+  return { message: 'Product updated successfully!', data: result };
+};
+
+const deleteProduct = async (
+  id: string,
+): Promise<IGenericResult<IProduct | null>> => {
+  const isExist = await Product.findById(id);
+  if (!isExist) {
+    throw new ApiError(404, 'Product not found!');
+  }
+  const result = await Product.findByIdAndDelete(id);
+  return {
+    message: 'Product deleted successfully!',
     data: result,
   };
 };
@@ -330,4 +404,7 @@ export const AdminService = {
   createCategory,
   updateProductCategory,
   deleteProductCategory,
+  createProduct,
+  updateProduct,
+  deleteProduct,
 };

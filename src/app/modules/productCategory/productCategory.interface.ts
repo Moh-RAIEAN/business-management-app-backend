@@ -20,3 +20,14 @@ export type IProductCategoryFilters = {
   id?: string;
   name?: string;
 };
+
+export type IFilterResult = {
+  $and: (
+    | {
+        [x: string]: boolean;
+      }
+    | {
+        [x: string]: string | number | undefined;
+      }
+  )[];
+};
