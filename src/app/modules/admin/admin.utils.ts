@@ -1,19 +1,10 @@
 import { EmployeeConstants } from '../employee/employee.constants';
 import { IEmployeeFilters } from '../employee/employee.interface';
+import { ICategoryFilterResult } from '../productCategory/productCategory.interface';
 
-type IFilterResult = {
-  $and: (
-    | {
-        [x: string]: boolean;
-      }
-    | {
-        [x: string]: string | number | undefined;
-      }
-  )[];
-};
 const handleEmployeeFilters = (
   employeeFilters: IEmployeeFilters,
-): IFilterResult => {
+): ICategoryFilterResult => {
   const [, SALARY, IS_ACTIVE, ROLE] = EmployeeConstants.FILTERS;
   const filtersConditionKeys = Object.keys(employeeFilters);
   return {

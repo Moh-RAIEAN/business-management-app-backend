@@ -21,7 +21,7 @@ export type IProductCategoryFilters = {
   name?: string;
 };
 
-export type IFilterResult = {
+export type ICategoryFilterResult = {
   $and: (
     | {
         [x: string]: boolean;

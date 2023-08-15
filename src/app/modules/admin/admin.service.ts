@@ -184,7 +184,7 @@ const getEployees = async (
 
   const filtersCondition = AdminUtils.handleEmployeeFilters(otherFilters);
 
-  const serachQuery = {
+  const searchQuery = {
     $and: [
       searchCondition,
       filtersCondition.$and.length ? filtersCondition : {},
@@ -202,7 +202,7 @@ const getEployees = async (
     },
     { $unwind: '$employee' },
     {
-      $match: serachQuery,
+      $match: searchQuery,
     },
     { $project: { password: 0 } },
   ];

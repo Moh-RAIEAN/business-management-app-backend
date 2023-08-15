@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // import { commonConstants } from '../../../constants/common.constants';
+import { StatusCodes } from 'http-status-codes';
 import handlePagination from '../../../helpers/paginationHelpers';
 import { IPaginationOptions } from '../../../interfaces/IPaginationOptions';
 import { IGenericResult } from '../../../interfaces/response.interface';
@@ -10,6 +11,7 @@ import {
 } from './productCategory.interface';
 import { ProductCategory } from './productCategory.model';
 import { productCategoryUtils } from './productCategory.utils';
+import ApiError from '../../errors/ApiError';
 
 const getProductCategories = async (
   filters: IProductCategoryFilters,
@@ -56,8 +58,11 @@ const getProductCategories = async (
 
 const getProductCategory = async (
   id: string,
-): Promise<IGenericResult<IProductCategory | null>> => {
+): Promise<IGenericResult<IProductCategory>> => {
   const result = await ProductCategory.findById(id);
+  if (!result) {
+    throw new ApiError(StatusCodes.NOT_FOUND, 'Product not found!');
+  }
   return {
     message: 'category retrived successfully!',
     data: result,

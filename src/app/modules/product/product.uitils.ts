@@ -1,3 +1,5 @@
+import { ProductContants } from './product.constants';
+import { IProductFilterResult, IProductFilters } from './product.interface';
 import { Product } from './product.model';
 
 const findMaxProductId = async (): Promise<string> => {
@@ -15,4 +17,37 @@ const generateProductId = (id: string, categoryId: string): string => {
   return newId;
 };
 
-export const ProductUtils = { findMaxProductId, generateProductId };
+const handleProductFilters = (
+  productFilters: IProductFilters,
+): IProductFilterResult => {
+  const [, , MAX, MIN, IS_IN_STOCK] = ProductContants.FILTERS;
+  const filtersConditionKeys = Object.keys(productFilters);
+  return {
+    $and: filtersConditionKeys.map((filterKey) => {
+      let filter;
+      if (filterKey === MAX) {
+        filter = {
+          ['price']: { $lte: Number(productFilters[filterKey]) },
+        };
+      } else if (filterKey === MIN) {
+        filter = {
+          ['price']: { $gte: Number(productFilters[filterKey]) },
+        };
+      } else if (filterKey === IS_IN_STOCK) {
+        filter = {
+          [`${filterKey}`]: Boolean(Number(productFilters[filterKey])),
+        };
+      } else {
+        filter = {
+          [`${filterKey}`]: productFilters[filterKey],
+        };
+      }
+      return filter;
+    }),
+  };
+};
+export const ProductUtils = {
+  findMaxProductId,
+  generateProductId,
+  handleProductFilters,
+};
